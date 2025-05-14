@@ -1,132 +1,113 @@
-using TMPro;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class RadialMenuController : MonoBehaviour
 {
-    [Header("Referencias")]
-    public GuitarController guitarController;
+    [SerializeField] private GuitarAudioManager audioManager;
+    [SerializeField] private float radius = 200f;
+    [SerializeField] private bool startMajorPage = true;
 
-    [Header("Configuración de Menú Radial")]
-    public float radius = 200f;
-    public int startPageIndex = 0;  // Página inicial (0-4)
+    private Button[] chordButtons;
+    private int currentPage = 0;
+    private int selectedChord = -1;
 
-    private List<Button> chordButtons = new List<Button>();
-    private int currentPageIndex;
+    // Referencia al sistema de input
+    private GuitarControls controls;
 
-    void Start()
+    private void Awake()
     {
-        if (guitarController == null)
-        {
-            Debug.LogError("RadialMenuController: Asigna el GuitarController.");
-            enabled = false;
-            return;
-        }
+        controls = new GuitarControls();
 
-        foreach (Transform child in transform)
-        {
-            Button btn = child.GetComponent<Button>();
-            if (btn != null)
-                chordButtons.Add(btn);
-        }
+        // Configurar eventos de input para los acordes
+        controls.Guitar.Chord_A.performed += ctx => SelectChord(0);
+        controls.Guitar.Chord_B.performed += ctx => SelectChord(1);
+        controls.Guitar.Chord_C.performed += ctx => SelectChord(2);
+        controls.Guitar.Chord_D.performed += ctx => SelectChord(3);
+        controls.Guitar.Chord_E.performed += ctx => SelectChord(4);
+        controls.Guitar.Chord_F.performed += ctx => SelectChord(5);
+        controls.Guitar.Chord_G.performed += ctx => SelectChord(6);
 
-        if (chordButtons.Count == 0)
-        {
-            Debug.LogError("No hay botones hijos en RadialMenu.");
-            enabled = false;
-            return;
-        }
+        // Eventos para cambiar de página
+        controls.Guitar.NextPage.performed += ctx => ChangePage(true);
+        controls.Guitar.PrevPage.performed += ctx => ChangePage(false);
 
-        currentPageIndex = startPageIndex;
-        UpdateButtons();
-        DistributeButtons();
+        // Obtener botones del menú radial
+        chordButtons = GetComponentsInChildren<Button>();
+        PositionButtons();
+
+        // Inicializar en la primera página
+        SetPage(startMajorPage ? 0 : 1);
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.qKey.wasPressedThisFrame)
-                PrevPage();
-            if (Keyboard.current.rKey.wasPressedThisFrame)
-                NextPage();
-
-            // Ejemplo: teclas 1-6 para disparar acordes
-            if (Keyboard.current.digit1Key.wasPressedThisFrame) OnChordTriggered(0);
-            if (Keyboard.current.digit2Key.wasPressedThisFrame) OnChordTriggered(1);
-            if (Keyboard.current.digit3Key.wasPressedThisFrame) OnChordTriggered(2);
-            if (Keyboard.current.digit4Key.wasPressedThisFrame) OnChordTriggered(3);
-            if (Keyboard.current.digit5Key.wasPressedThisFrame) OnChordTriggered(4);
-            if (Keyboard.current.digit6Key.wasPressedThisFrame) OnChordTriggered(5);
-        }
+        controls.Enable();
     }
 
-    private void OnChordTriggered(int index)
+    private void OnDisable()
     {
-        guitarController.PlayChord(currentPageIndex, index);
-        if (index < chordButtons.Count)
-            StartCoroutine(AnimateButtonPress(chordButtons[index]));
+        controls.Disable();
     }
 
-    private void DistributeButtons()
+    private void PositionButtons()
     {
-        int numButtons = chordButtons.Count;
-        float angleStep = 360f / numButtons;
-        float startAngle = 90f;
+        if (chordButtons.Length < 7) return; // Necesitamos al menos 7 botones
 
-        for (int i = 0; i < numButtons; i++)
+        float angleStep = 2 * Mathf.PI / 7;
+
+        for (int i = 0; i < 7; i++)
         {
-            RectTransform btnRect = chordButtons[i].GetComponent<RectTransform>();
-            if (btnRect != null)
-            {
-                btnRect.anchorMin = btnRect.anchorMax = new Vector2(0.5f, 0.5f);
-                btnRect.pivot = new Vector2(0.5f, 0.5f);
-                float angleDeg = startAngle - (angleStep * i);
-                float rad = angleDeg * Mathf.Deg2Rad;
-                float x = Mathf.Cos(rad) * radius;
-                float y = Mathf.Sin(rad) * radius;
-                btnRect.anchoredPosition = new Vector2(x, y);
-            }
-            chordButtons[i].onClick.RemoveAllListeners();
+            float angle = i * angleStep;
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+
+            chordButtons[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+
+            // Configurar evento de clic
             int index = i;
-            chordButtons[i].onClick.AddListener(() => OnChordTriggered(index));
+            chordButtons[i].onClick.AddListener(() => SelectChord(index));
         }
     }
 
-    private void UpdateButtons()
+    private void SelectChord(int index)
     {
-        string[] chordNames = guitarController.GetChordNames(currentPageIndex);
-        for (int i = 0; i < chordButtons.Count; i++)
+        selectedChord = index;
+        audioManager.SetCurrentChord(index);
+
+        // Visual feedback (highlight selected button)
+        for (int i = 0; i < chordButtons.Length; i++)
         {
-            TMP_Text textComp = chordButtons[i].GetComponentInChildren<TMP_Text>();
-            if (textComp != null && i < chordNames.Length)
-                textComp.text = chordNames[i];
+            ColorBlock colors = chordButtons[i].colors;
+            colors.normalColor = (i == index) ? Color.yellow : Color.white;
+            chordButtons[i].colors = colors;
         }
-        Debug.Log($"Página actual: {currentPageIndex + 1}");
     }
 
-    private IEnumerator AnimateButtonPress(Button chordButton)
+    private void ChangePage(bool next)
     {
-        Transform btnTransform = chordButton.transform;
-        Vector3 originalScale = btnTransform.localScale;
-        Vector3 pressedScale = originalScale * 1.1f;
-        btnTransform.localScale = pressedScale;
-        yield return new WaitForSeconds(0.1f);
-        btnTransform.localScale = originalScale;
+        int newPage = next ? (currentPage + 1) % audioManager.chordPages.Length :
+                            (currentPage - 1 + audioManager.chordPages.Length) % audioManager.chordPages.Length;
+        SetPage(newPage);
     }
 
-    private void NextPage()
+    private void SetPage(int pageIndex)
     {
-        currentPageIndex = (currentPageIndex + 1) % 5;  // Ciclo entre 5 páginas
-        UpdateButtons();
-    }
+        currentPage = pageIndex;
+        audioManager.SetCurrentPage(pageIndex);
 
-    private void PrevPage()
-    {
-        currentPageIndex = (currentPageIndex + 4) % 5;  // Ciclo entre 5 páginas hacia atrás
-        UpdateButtons();
+        // Actualizar etiquetas de botones según la página
+        for (int i = 0; i < chordButtons.Length && i < audioManager.chordPages[currentPage].chords.Length; i++)
+        {
+            Text buttonText = chordButtons[i].GetComponentInChildren<Text>();
+            if (buttonText != null)
+            {
+                buttonText.text = audioManager.chordPages[currentPage].chords[i].chordName;
+            }
+        }
+
+        // Resetear selección de acorde
+        selectedChord = -1;
+        audioManager.SetCurrentChord(-1);
     }
 }
