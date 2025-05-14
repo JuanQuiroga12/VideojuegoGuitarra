@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @GuitarControls : IInputActionCollection2, IDisposable
+public partial class @GuitarControls: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
     public @GuitarControls()
@@ -27,7 +27,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
             ""name"": ""Guitar"",
             ""id"": ""b4894d27-c680-4bfa-85d0-57a088f3210c"",
             ""actions"": [
-                                {
+                {
                     ""name"": ""NextPage"",
                     ""type"": ""Button"",
                     ""id"": ""369e0d6a-ebd3-45d0-8d44-d30993d99042"",
@@ -111,7 +111,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""TouchPosition"",
                     ""type"": ""Value"",
-                    ""id"": ""86d9f8a0-4c3e-4b0b-aa6c-daaec9db9a76"",
+                    ""id"": ""7fb7e974-ecbb-4a22-901e-f11aaa7019b4"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -120,7 +120,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""TouchContact"",
                     ""type"": ""Button"",
-                    ""id"": ""93e2f82f-3d77-4c04-a0a9-24e4f45e952f"",
+                    ""id"": ""14579695-af67-4512-a9b2-9fa8728b493e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -129,7 +129,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String1"",
                     ""type"": ""Button"",
-                    ""id"": ""7e3f4c61-1f7d-49aa-9b36-8eee1c89fb1a"",
+                    ""id"": ""5332c95a-8236-4e84-b11a-ae6f2749d70d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -138,7 +138,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String2"",
                     ""type"": ""Button"",
-                    ""id"": ""b27e50c3-1d5c-4a2c-9fcb-48d2ee7bf2d3"",
+                    ""id"": ""063a484a-1e11-4a58-ad12-0b7ab086e16e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -147,7 +147,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String3"",
                     ""type"": ""Button"",
-                    ""id"": ""5c4e9d05-0c92-4b10-9a36-f4e745a6f9c8"",
+                    ""id"": ""b8ad97de-e245-42e9-b9ba-9e234a4e8060"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -156,7 +156,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String4"",
                     ""type"": ""Button"",
-                    ""id"": ""67f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""27258394-4940-4885-94ce-f5cd9c4019fc"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -165,7 +165,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String5"",
                     ""type"": ""Button"",
-                    ""id"": ""82f5e8de-0b4f-4c3c-957b-db7c1615c70a"",
+                    ""id"": ""fb6d226b-8c45-4370-8fc9-96d03cd9e616"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -174,7 +174,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""String6"",
                     ""type"": ""Button"",
-                    ""id"": ""f1d3e4a7-3b24-4c15-a8f6-6c8e3c0d58b9"",
+                    ""id"": ""4b029d2f-3d3b-4d82-b13b-441b725f7ccf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -183,15 +183,13 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Strum"",
                     ""type"": ""Button"",
-                    ""id"": ""de9c71a5-4b62-4e3d-8a93-f6ae12f6ce18"",
+                    ""id"": ""2042b385-bb2d-4fa4-96bc-6e977bd4d2e0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
-
-
             ""bindings"": [
                 {
                     ""name"": """",
@@ -294,7 +292,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""41c1f9c3-5e65-4b37-8cac-13f41ab2bbe5"",
+                    ""id"": ""48a290cb-15fd-45a5-8fde-06fdf0ad744b"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -305,7 +303,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e9cf7562-b34b-4fa4-b51e-c923ec4be932"",
+                    ""id"": ""6af815be-ef80-474a-9581-c071dc19742b"",
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -316,7 +314,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a8d73b4f-1e2c-47a9-bda4-6c8e3c0d58b9"",
+                    ""id"": ""7dbf6118-a722-498b-a077-d19a797f3a8a"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -327,7 +325,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""bd1f1b30-b491-4f4f-ae28-695a3afab1af"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -338,7 +336,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""b165925a-3c19-47e7-af04-d8f59a6369e7"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -349,7 +347,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""da32af77-1a06-4a75-b6b9-69d77e133741"",
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -360,7 +358,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""13f77bec-6d91-4b14-8438-aab922edcab0"",
                     ""path"": ""<Keyboard>/5"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -371,7 +369,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""168132aa-0ae9-4109-ba70-820ad3943418"",
                     ""path"": ""<Keyboard>/6"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -382,7 +380,7 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""9e6ce2e2-2943-4786-b065-1dbce64550c9"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -393,11 +391,11 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""id"": ""2c4931ef-e56d-48f2-83b1-61334930598b"",
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Strum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -479,6 +477,15 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
         m_Guitar_Chord_E = m_Guitar.FindAction("Chord_E", throwIfNotFound: true);
         m_Guitar_Chord_F = m_Guitar.FindAction("Chord_F", throwIfNotFound: true);
         m_Guitar_Chord_G = m_Guitar.FindAction("Chord_G", throwIfNotFound: true);
+        m_Guitar_TouchPosition = m_Guitar.FindAction("TouchPosition", throwIfNotFound: true);
+        m_Guitar_TouchContact = m_Guitar.FindAction("TouchContact", throwIfNotFound: true);
+        m_Guitar_String1 = m_Guitar.FindAction("String1", throwIfNotFound: true);
+        m_Guitar_String2 = m_Guitar.FindAction("String2", throwIfNotFound: true);
+        m_Guitar_String3 = m_Guitar.FindAction("String3", throwIfNotFound: true);
+        m_Guitar_String4 = m_Guitar.FindAction("String4", throwIfNotFound: true);
+        m_Guitar_String5 = m_Guitar.FindAction("String5", throwIfNotFound: true);
+        m_Guitar_String6 = m_Guitar.FindAction("String6", throwIfNotFound: true);
+        m_Guitar_Strum = m_Guitar.FindAction("Strum", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -549,6 +556,15 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Guitar_Chord_E;
     private readonly InputAction m_Guitar_Chord_F;
     private readonly InputAction m_Guitar_Chord_G;
+    private readonly InputAction m_Guitar_TouchPosition;
+    private readonly InputAction m_Guitar_TouchContact;
+    private readonly InputAction m_Guitar_String1;
+    private readonly InputAction m_Guitar_String2;
+    private readonly InputAction m_Guitar_String3;
+    private readonly InputAction m_Guitar_String4;
+    private readonly InputAction m_Guitar_String5;
+    private readonly InputAction m_Guitar_String6;
+    private readonly InputAction m_Guitar_Strum;
     public struct GuitarActions
     {
         private @GuitarControls m_Wrapper;
@@ -562,6 +578,15 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
         public InputAction @Chord_E => m_Wrapper.m_Guitar_Chord_E;
         public InputAction @Chord_F => m_Wrapper.m_Guitar_Chord_F;
         public InputAction @Chord_G => m_Wrapper.m_Guitar_Chord_G;
+        public InputAction @TouchPosition => m_Wrapper.m_Guitar_TouchPosition;
+        public InputAction @TouchContact => m_Wrapper.m_Guitar_TouchContact;
+        public InputAction @String1 => m_Wrapper.m_Guitar_String1;
+        public InputAction @String2 => m_Wrapper.m_Guitar_String2;
+        public InputAction @String3 => m_Wrapper.m_Guitar_String3;
+        public InputAction @String4 => m_Wrapper.m_Guitar_String4;
+        public InputAction @String5 => m_Wrapper.m_Guitar_String5;
+        public InputAction @String6 => m_Wrapper.m_Guitar_String6;
+        public InputAction @Strum => m_Wrapper.m_Guitar_Strum;
         public InputActionMap Get() { return m_Wrapper.m_Guitar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -598,6 +623,33 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
             @Chord_G.started += instance.OnChord_G;
             @Chord_G.performed += instance.OnChord_G;
             @Chord_G.canceled += instance.OnChord_G;
+            @TouchPosition.started += instance.OnTouchPosition;
+            @TouchPosition.performed += instance.OnTouchPosition;
+            @TouchPosition.canceled += instance.OnTouchPosition;
+            @TouchContact.started += instance.OnTouchContact;
+            @TouchContact.performed += instance.OnTouchContact;
+            @TouchContact.canceled += instance.OnTouchContact;
+            @String1.started += instance.OnString1;
+            @String1.performed += instance.OnString1;
+            @String1.canceled += instance.OnString1;
+            @String2.started += instance.OnString2;
+            @String2.performed += instance.OnString2;
+            @String2.canceled += instance.OnString2;
+            @String3.started += instance.OnString3;
+            @String3.performed += instance.OnString3;
+            @String3.canceled += instance.OnString3;
+            @String4.started += instance.OnString4;
+            @String4.performed += instance.OnString4;
+            @String4.canceled += instance.OnString4;
+            @String5.started += instance.OnString5;
+            @String5.performed += instance.OnString5;
+            @String5.canceled += instance.OnString5;
+            @String6.started += instance.OnString6;
+            @String6.performed += instance.OnString6;
+            @String6.canceled += instance.OnString6;
+            @Strum.started += instance.OnStrum;
+            @Strum.performed += instance.OnStrum;
+            @Strum.canceled += instance.OnStrum;
         }
 
         private void UnregisterCallbacks(IGuitarActions instance)
@@ -629,6 +681,33 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
             @Chord_G.started -= instance.OnChord_G;
             @Chord_G.performed -= instance.OnChord_G;
             @Chord_G.canceled -= instance.OnChord_G;
+            @TouchPosition.started -= instance.OnTouchPosition;
+            @TouchPosition.performed -= instance.OnTouchPosition;
+            @TouchPosition.canceled -= instance.OnTouchPosition;
+            @TouchContact.started -= instance.OnTouchContact;
+            @TouchContact.performed -= instance.OnTouchContact;
+            @TouchContact.canceled -= instance.OnTouchContact;
+            @String1.started -= instance.OnString1;
+            @String1.performed -= instance.OnString1;
+            @String1.canceled -= instance.OnString1;
+            @String2.started -= instance.OnString2;
+            @String2.performed -= instance.OnString2;
+            @String2.canceled -= instance.OnString2;
+            @String3.started -= instance.OnString3;
+            @String3.performed -= instance.OnString3;
+            @String3.canceled -= instance.OnString3;
+            @String4.started -= instance.OnString4;
+            @String4.performed -= instance.OnString4;
+            @String4.canceled -= instance.OnString4;
+            @String5.started -= instance.OnString5;
+            @String5.performed -= instance.OnString5;
+            @String5.canceled -= instance.OnString5;
+            @String6.started -= instance.OnString6;
+            @String6.performed -= instance.OnString6;
+            @String6.canceled -= instance.OnString6;
+            @Strum.started -= instance.OnStrum;
+            @Strum.performed -= instance.OnStrum;
+            @Strum.canceled -= instance.OnStrum;
         }
 
         public void RemoveCallbacks(IGuitarActions instance)
@@ -702,5 +781,14 @@ public partial class @GuitarControls : IInputActionCollection2, IDisposable
         void OnChord_E(InputAction.CallbackContext context);
         void OnChord_F(InputAction.CallbackContext context);
         void OnChord_G(InputAction.CallbackContext context);
+        void OnTouchPosition(InputAction.CallbackContext context);
+        void OnTouchContact(InputAction.CallbackContext context);
+        void OnString1(InputAction.CallbackContext context);
+        void OnString2(InputAction.CallbackContext context);
+        void OnString3(InputAction.CallbackContext context);
+        void OnString4(InputAction.CallbackContext context);
+        void OnString5(InputAction.CallbackContext context);
+        void OnString6(InputAction.CallbackContext context);
+        void OnStrum(InputAction.CallbackContext context);
     }
 }
