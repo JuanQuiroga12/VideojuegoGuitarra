@@ -10,13 +10,13 @@ public class RadialMenuController : MonoBehaviour
 
     private Button[] chordButtons;
     private int currentPage = 0;
-    private int selectedChord = -1;
 
     // Referencia al sistema de input
     private GuitarControls controls;
 
     private void Awake()
     {
+        // Inicializar controles
         controls = new GuitarControls();
 
         // Configurar eventos de input para los acordes
@@ -72,7 +72,6 @@ public class RadialMenuController : MonoBehaviour
 
     private void SelectChord(int index)
     {
-        selectedChord = index;
         audioManager.SetCurrentChord(index);
 
         // Visual feedback (highlight selected button)
@@ -100,14 +99,21 @@ public class RadialMenuController : MonoBehaviour
         for (int i = 0; i < chordButtons.Length && i < audioManager.chordPages[currentPage].chords.Length; i++)
         {
             Text buttonText = chordButtons[i].GetComponentInChildren<Text>();
+            TMPro.TextMeshProUGUI tmpText = chordButtons[i].GetComponentInChildren<TMPro.TextMeshProUGUI>();
+
+            string chordName = audioManager.chordPages[currentPage].chords[i].chordName;
+
             if (buttonText != null)
             {
-                buttonText.text = audioManager.chordPages[currentPage].chords[i].chordName;
+                buttonText.text = chordName;
+            }
+            else if (tmpText != null)
+            {
+                tmpText.text = chordName;
             }
         }
 
         // Resetear selección de acorde
-        selectedChord = -1;
         audioManager.SetCurrentChord(-1);
     }
 }

@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @GuitarControls: IInputActionCollection2, IDisposable
+public partial class @GuitarControls : IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
     public @GuitarControls()
@@ -27,7 +27,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
             ""name"": ""Guitar"",
             ""id"": ""b4894d27-c680-4bfa-85d0-57a088f3210c"",
             ""actions"": [
-                {
+                                {
                     ""name"": ""NextPage"",
                     ""type"": ""Button"",
                     ""id"": ""369e0d6a-ebd3-45d0-8d44-d30993d99042"",
@@ -103,6 +103,87 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                     ""name"": ""Chord_G"",
                     ""type"": ""Button"",
                     ""id"": ""a5667cb8-11cd-4b08-9578-e5e57ab76716"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TouchPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""86d9f8a0-4c3e-4b0b-aa6c-daaec9db9a76"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TouchContact"",
+                    ""type"": ""Button"",
+                    ""id"": ""93e2f82f-3d77-4c04-a0a9-24e4f45e952f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String1"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e3f4c61-1f7d-49aa-9b36-8eee1c89fb1a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String2"",
+                    ""type"": ""Button"",
+                    ""id"": ""b27e50c3-1d5c-4a2c-9fcb-48d2ee7bf2d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String3"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c4e9d05-0c92-4b10-9a36-f4e745a6f9c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String4"",
+                    ""type"": ""Button"",
+                    ""id"": ""67f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String5"",
+                    ""type"": ""Button"",
+                    ""id"": ""82f5e8de-0b4f-4c3c-957b-db7c1615c70a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""String6"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1d3e4a7-3b24-4c15-a8f6-6c8e3c0d58b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Strum"",
+                    ""type"": ""Button"",
+                    ""id"": ""de9c71a5-4b62-4e3d-8a93-f6ae12f6ce18"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -208,6 +289,116 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Chord_B"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41c1f9c3-5e65-4b37-8cac-13f41ab2bbe5"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9cf7562-b34b-4fa4-b51e-c923ec4be932"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TouchContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8d73b4f-1e2c-47a9-bda4-6c8e3c0d58b9"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""String6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Strum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f9e37d-3c96-4e1c-ab5d-9efd6e962a33"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Strum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

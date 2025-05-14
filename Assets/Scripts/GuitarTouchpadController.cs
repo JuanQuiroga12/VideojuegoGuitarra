@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using UnityEngine.InputSystem.DualShock;
+using System.Collections;
 
 public class GuitarTouchpadController : MonoBehaviour
 {
     [SerializeField] private GuitarAudioManager audioManager;
+    [SerializeField] private GuitarNeckUI neckUI;
 
-    // Referencia al controlador de PS5
+    // Referencia al controlador
     private Gamepad gamepad;
 
     // Áreas del touchpad (dividimos en 6 secciones verticales para las cuerdas)
@@ -28,9 +29,12 @@ public class GuitarTouchpadController : MonoBehaviour
             if (gamepad == null) return; // No hay gamepad conectado
         }
 
-        // Leer el estado del touchpad
-        bool touchPressed = gamepad.leftTrigger.isPressed; // Usamos el trigger como sustituto para "toque"
-        Vector2 touchPosition = gamepad.leftStick.ReadValue(); // Usamos el stick como sustituto para "posición"
+        // En un DualSense podríamos acceder al touchpad directamente
+        // Pero dado que estamos simulando, usamos otros controles
+
+        // Simular touchpad con el stick izquierdo y trigger para "tocar"
+        bool touchPressed = gamepad.leftTrigger.isPressed;
+        Vector2 touchPosition = gamepad.leftStick.ReadValue();
 
         // Ajustar la posición para que vaya de 0 a 1 en ambos ejes
         touchPosition = new Vector2((touchPosition.x + 1) / 2, (touchPosition.y + 1) / 2);
@@ -45,10 +49,19 @@ public class GuitarTouchpadController : MonoBehaviour
 
             // Reproducir la cuerda tocada
             int stringIndex = GetStringIndexFromPosition(touchPosition);
-            if (stringIndex >= 0)
+            if (stringIndex >= 0 && audioManager.CurrentChord >= 0)
             {
-                audioManager.PlayString(audioManager.currentChord, stringIndex);
+                audioManager.PlayString(audioManager.CurrentChord, stringIndex);
                 playedStrings.Add(stringIndex);
+
+                // Animar cuerda
+                if (neckUI != null)
+                {
+                    neckUI.AnimateString(stringIndex);
+                }
+
+                // Proporcionar retroalimentación háptica (vibración)
+                ProvideHapticFeedback(stringIndex);
             }
         }
         // Detectar movimiento durante el toque
@@ -58,17 +71,39 @@ public class GuitarTouchpadController : MonoBehaviour
             if (Vector2.Distance(touchPosition, lastTouchPosition) > 0.05f)
             {
                 int stringIndex = GetStringIndexFromPosition(touchPosition);
-                if (stringIndex >= 0 && !playedStrings.Contains(stringIndex))
+                if (stringIndex >= 0 && !playedStrings.Contains(stringIndex) && audioManager.CurrentChord >= 0)
                 {
-                    audioManager.PlayString(audioManager.currentChord, stringIndex);
+                    audioManager.PlayString(audioManager.CurrentChord, stringIndex);
                     playedStrings.Add(stringIndex);
+
+                    // Animar cuerda
+                    if (neckUI != null)
+                    {
+                        neckUI.AnimateString(stringIndex);
+                    }
+
+                    // Proporcionar retroalimentación háptica
+                    ProvideHapticFeedback(stringIndex, 0.5f);
                 }
 
                 // Detectar rasgueo (movimiento vertical significativo)
                 if (Mathf.Abs(touchPosition.y - touchStartPosition.y) > 0.5f)
                 {
                     bool upStrum = touchPosition.y > touchStartPosition.y;
-                    audioManager.PlayStrum(audioManager.currentChord, upStrum);
+                    audioManager.PlayStrum(audioManager.CurrentChord, upStrum);
+
+                    // Animar todas las cuerdas
+                    if (neckUI != null)
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            neckUI.AnimateString(i);
+                        }
+                    }
+
+                    // Retroalimentación háptica fuerte para rasgueo
+                    ProvideHapticFeedback(0, 1.0f);
+
                     // Reiniciar posición de inicio para evitar múltiples rasgueos
                     touchStartPosition = touchPosition;
                     playedStrings.Clear();
@@ -101,28 +136,28 @@ public class GuitarTouchpadController : MonoBehaviour
         return -1; // Fuera de rango
     }
 
-    // Añade esto a tu GuitarTouchpadController
-    private void ProvideHapticFeedback(int stringIndex)
+    private void ProvideHapticFeedback(int stringIndex, float intensityMultiplier = 1.0f)
     {
-        if (gamepad == null || !(gamepad is DualSenseGamepadHID)) return;
-
-        DualSenseGamepadHID dualSense = (DualSenseGamepadHID)gamepad;
+        if (gamepad == null) return;
 
         // Intensidad basada en la cuerda (grave = más fuerte)
-        float intensity = 0.2f + (5 - stringIndex) * 0.15f;
+        float intensity = (0.2f + (5 - stringIndex) * 0.15f) * intensityMultiplier;
+        intensity = Mathf.Clamp01(intensity); // Asegurar que esté entre 0 y 1
         float duration = 0.1f;
 
         // Vibración en ambos motores
-        dualSense.SetMotorSpeeds(intensity, intensity);
+        gamepad.SetMotorSpeeds(intensity, intensity);
 
         // Apagar la vibración después de la duración especificada
-        StartCoroutine(StopHapticFeedback(dualSense, duration));
+        StartCoroutine(StopHapticFeedback(duration));
     }
 
-    private System.Collections.IEnumerator StopHapticFeedback(DualSenseGamepadHID dualSense, float delay)
+    private IEnumerator StopHapticFeedback(float delay)
     {
         yield return new WaitForSeconds(delay);
-        dualSense.SetMotorSpeeds(0, 0);
+        if (gamepad != null)
+        {
+            gamepad.SetMotorSpeeds(0, 0);
+        }
     }
-
 }

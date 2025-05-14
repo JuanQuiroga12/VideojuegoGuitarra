@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public class ChordStrings
@@ -18,11 +19,58 @@ public class GuitarAudioManager : MonoBehaviour
 {
     public ChordPage[] chordPages = new ChordPage[5]; // 5 páginas de acordes
 
-    [SerializeField] private AudioSource[] stringSources; // 6 AudioSources para permitir múltiples cuerdas a la vez
+    [SerializeField] private AudioSource[] stringSources; // Array de AudioSources para reproducir múltiples cuerdas
 
     private int currentPage = 0;
-    private int currentChord = -1;
+    private int _currentChord = -1;
 
+    // Propiedad para acceder al acorde actual desde otros scripts
+    public int CurrentChord
+    {
+        get { return _currentChord; }
+        private set { _currentChord = value; }
+    }
+
+    private void Awake()
+    {
+        // Inicializar AudioSources si no están configurados
+        if (stringSources == null || stringSources.Length == 0)
+        {
+            stringSources = new AudioSource[6];
+            for (int i = 0; i < 6; i++)
+            {
+                GameObject sourceObj = new GameObject($"StringSource_{i}");
+                sourceObj.transform.parent = transform;
+                stringSources[i] = sourceObj.AddComponent<AudioSource>();
+            }
+        }
+
+        // Inicializar estructura de datos si es necesario
+        InitializeChordStructure();
+    }
+
+    private void InitializeChordStructure()
+    {
+        // Crear la estructura de acordes si no está inicializada
+        if (chordPages == null || chordPages.Length == 0)
+        {
+            chordPages = new ChordPage[5];
+
+            for (int p = 0; p < 5; p++)
+            {
+                chordPages[p] = new ChordPage();
+                chordPages[p].chords = new ChordStrings[6];
+
+                for (int c = 0; c < 6; c++)
+                {
+                    chordPages[p].chords[c] = new ChordStrings();
+                    chordPages[p].chords[c].stringClips = new AudioClip[6];
+                }
+            }
+        }
+    }
+
+    // Método para reproducir una cuerda específica de un acorde específico
     public void PlayString(int chordIndex, int stringIndex)
     {
         if (chordIndex >= 0 && chordIndex < chordPages[currentPage].chords.Length &&
@@ -37,16 +85,17 @@ public class GuitarAudioManager : MonoBehaviour
         }
     }
 
+    // Método para simular un rasgueo completo 
     public void PlayStrum(int chordIndex, bool upStrum = false)
     {
         if (chordIndex >= 0 && chordIndex < chordPages[currentPage].chords.Length)
         {
-            // Determina el orden de las cuerdas según sea rasgueo hacia arriba o abajo
+            // Determina el orden de cuerdas según sea rasgueo hacia arriba o abajo
             int start = upStrum ? 5 : 0;
             int end = upStrum ? -1 : 6;
             int step = upStrum ? -1 : 1;
 
-            // Añade un pequeño retraso entre cuerdas para simular un rasgueo
+            // Añade un pequeño retraso entre cuerdas
             float delayBetweenStrings = 0.03f;
 
             for (int i = 0; i < 6; i++)
@@ -57,12 +106,13 @@ public class GuitarAudioManager : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator PlayDelayedString(int chordIndex, int stringIndex, float delay)
+    private IEnumerator PlayDelayedString(int chordIndex, int stringIndex, float delay)
     {
         yield return new WaitForSeconds(delay);
         PlayString(chordIndex, stringIndex);
     }
 
+    // Método para cambiar la página actual
     public void SetCurrentPage(int pageIndex)
     {
         if (pageIndex >= 0 && pageIndex < chordPages.Length)
@@ -71,44 +121,19 @@ public class GuitarAudioManager : MonoBehaviour
         }
     }
 
+    // Método para seleccionar un acorde actual
     public void SetCurrentChord(int chordIndex)
     {
-        currentChord = chordIndex;
+        CurrentChord = chordIndex;
     }
 
-    // Añade esto a tu GuitarAudioManager
-    private Queue<AudioSource> audioSourcePool = new Queue<AudioSource>();
-    private int poolSize = 12; // 6 cuerdas * 2 para tener rotación
-
-    private void Start()
+    // Método para obtener el nombre del acorde actual
+    public string GetCurrentChordName()
     {
-        // Inicializar pool
-        for (int i = 0; i < poolSize; i++)
+        if (CurrentChord >= 0 && CurrentChord < chordPages[currentPage].chords.Length)
         {
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.playOnAwake = false;
-            source.loop = false;
-            audioSourcePool.Enqueue(source);
+            return chordPages[currentPage].chords[CurrentChord].chordName;
         }
+        return "";
     }
-
-    private AudioSource GetAudioSource()
-    {
-        if (audioSourcePool.Count > 0)
-        {
-            return audioSourcePool.Dequeue();
-        }
-
-        // Si no hay fuentes disponibles, crear una nueva
-        AudioSource source = gameObject.AddComponent<AudioSource>();
-        source.playOnAwake = false;
-        source.loop = false;
-        return source;
-    }
-
-    private void RecycleAudioSource(AudioSource source)
-    {
-        audioSourcePool.Enqueue(source);
-    }
-
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.DualShock;
 
 public class GuitarGameManager : MonoBehaviour
 {
@@ -20,17 +19,17 @@ public class GuitarGameManager : MonoBehaviour
         controls = new GuitarControls();
 
         // Configurar controlador según dispositivo
-        if (Gamepad.current != null && Gamepad.current is DualSenseGamepadHID)
+        if (Gamepad.current != null)
         {
             touchpadController.gameObject.SetActive(true);
             mouseController.gameObject.SetActive(false);
-            Debug.Log("PS5 DualSense controller detected - using touchpad controls");
+            Debug.Log("Gamepad controller detected - using touchpad controls");
         }
         else
         {
             touchpadController.gameObject.SetActive(false);
             mouseController.gameObject.SetActive(true);
-            Debug.Log("No PS5 controller detected - using mouse controls");
+            Debug.Log("No gamepad detected - using mouse controls");
         }
     }
 
@@ -47,19 +46,17 @@ public class GuitarGameManager : MonoBehaviour
     private void Update()
     {
         // Detectar cambios de dispositivo de entrada
-        if (Gamepad.current != null && Gamepad.current is DualSenseGamepadHID &&
-            !touchpadController.gameObject.activeSelf)
+        if (Gamepad.current != null && !touchpadController.gameObject.activeSelf)
         {
             touchpadController.gameObject.SetActive(true);
             mouseController.gameObject.SetActive(false);
-            Debug.Log("PS5 DualSense controller connected - switching to touchpad controls");
+            Debug.Log("Gamepad controller connected - switching to touchpad controls");
         }
-        else if ((Gamepad.current == null || !(Gamepad.current is DualSenseGamepadHID)) &&
-                !mouseController.gameObject.activeSelf)
+        else if (Gamepad.current == null && !mouseController.gameObject.activeSelf)
         {
             touchpadController.gameObject.SetActive(false);
             mouseController.gameObject.SetActive(true);
-            Debug.Log("PS5 controller disconnected - switching to mouse controls");
+            Debug.Log("Gamepad disconnected - switching to mouse controls");
         }
     }
 }

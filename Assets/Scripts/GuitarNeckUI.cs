@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GuitarNeckUI : MonoBehaviour
 {
@@ -10,6 +11,42 @@ public class GuitarNeckUI : MonoBehaviour
     private Color normalStringColor = Color.white;
     private Color playedStringColor = Color.yellow;
     private float stringAnimationDuration = 0.2f;
+
+    private void Start()
+    {
+        if (neckArea == null)
+        {
+            neckArea = GetComponent<RectTransform>();
+        }
+
+        if (stringVisuals == null || stringVisuals.Length == 0)
+        {
+            CreateStringVisuals();
+        }
+    }
+
+    private void CreateStringVisuals()
+    {
+        // Crear cuerdas visuales si no existen
+        stringVisuals = new RectTransform[6];
+
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject stringObj = new GameObject($"String_{i + 1}");
+            stringObj.transform.SetParent(transform);
+
+            RectTransform rectTransform = stringObj.AddComponent<RectTransform>();
+            rectTransform.anchorMin = new Vector2(0, (float)i / 6);
+            rectTransform.anchorMax = new Vector2(1, (float)(i + 1) / 6);
+            rectTransform.offsetMin = new Vector2(0, 2); // Margen entre cuerdas
+            rectTransform.offsetMax = new Vector2(0, -2);
+
+            Image image = stringObj.AddComponent<Image>();
+            image.color = normalStringColor;
+
+            stringVisuals[i] = rectTransform;
+        }
+    }
 
     public void AnimateString(int stringIndex)
     {
@@ -26,8 +63,9 @@ public class GuitarNeckUI : MonoBehaviour
         StartCoroutine(AnimateStringMovement(stringVisuals[stringIndex]));
     }
 
-    private System.Collections.IEnumerator AnimateStringColor(Image stringImage)
+    private IEnumerator AnimateStringColor(Image stringImage)
     {
+        Color originalColor = stringImage.color;
         stringImage.color = playedStringColor;
 
         float elapsed = 0;
@@ -39,10 +77,10 @@ public class GuitarNeckUI : MonoBehaviour
             yield return null;
         }
 
-        stringImage.color = normalStringColor;
+        stringImage.color = originalColor;
     }
 
-    private System.Collections.IEnumerator AnimateStringMovement(RectTransform stringTransform)
+    private IEnumerator AnimateStringMovement(RectTransform stringTransform)
     {
         Vector2 originalPosition = stringTransform.anchoredPosition;
         float amplitude = 5f; // Qué tanto se desplaza la cuerda
