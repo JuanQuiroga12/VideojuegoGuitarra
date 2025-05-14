@@ -100,22 +100,13 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Chord_G"",
+                    ""name"": ""TouchPosition"",
                     ""type"": ""Button"",
-                    ""id"": ""a5667cb8-11cd-4b08-9578-e5e57ab76716"",
+                    ""id"": ""7fb7e974-ecbb-4a22-901e-f11aaa7019b4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TouchPosition"",
-                    ""type"": ""Value"",
-                    ""id"": ""7fb7e974-ecbb-4a22-901e-f11aaa7019b4"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""TouchContact"",
@@ -216,7 +207,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a4877743-5746-48f5-8738-4e34edb669da"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -227,7 +218,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0d5527eb-efb2-405f-b434-fb60ca1ee333"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -238,7 +229,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""aba79493-4066-4db4-b4b4-aaeee6f71263"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -249,7 +240,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3b1df623-619a-4814-9169-500b5b6f5175"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -260,7 +251,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7134f551-5e5c-425f-ae20-9509f9764271"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -270,19 +261,8 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7ba07ea9-14da-41ab-ade6-14bf8820ed22"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Chord_G"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""915f89ee-5d93-41ee-a33e-952b67b573bc"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -293,7 +273,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""48a290cb-15fd-45a5-8fde-06fdf0ad744b"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<Gamepad>/touchpadButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -476,7 +456,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         m_Guitar_Chord_D = m_Guitar.FindAction("Chord_D", throwIfNotFound: true);
         m_Guitar_Chord_E = m_Guitar.FindAction("Chord_E", throwIfNotFound: true);
         m_Guitar_Chord_F = m_Guitar.FindAction("Chord_F", throwIfNotFound: true);
-        m_Guitar_Chord_G = m_Guitar.FindAction("Chord_G", throwIfNotFound: true);
         m_Guitar_TouchPosition = m_Guitar.FindAction("TouchPosition", throwIfNotFound: true);
         m_Guitar_TouchContact = m_Guitar.FindAction("TouchContact", throwIfNotFound: true);
         m_Guitar_String1 = m_Guitar.FindAction("String1", throwIfNotFound: true);
@@ -555,7 +534,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guitar_Chord_D;
     private readonly InputAction m_Guitar_Chord_E;
     private readonly InputAction m_Guitar_Chord_F;
-    private readonly InputAction m_Guitar_Chord_G;
     private readonly InputAction m_Guitar_TouchPosition;
     private readonly InputAction m_Guitar_TouchContact;
     private readonly InputAction m_Guitar_String1;
@@ -577,7 +555,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         public InputAction @Chord_D => m_Wrapper.m_Guitar_Chord_D;
         public InputAction @Chord_E => m_Wrapper.m_Guitar_Chord_E;
         public InputAction @Chord_F => m_Wrapper.m_Guitar_Chord_F;
-        public InputAction @Chord_G => m_Wrapper.m_Guitar_Chord_G;
         public InputAction @TouchPosition => m_Wrapper.m_Guitar_TouchPosition;
         public InputAction @TouchContact => m_Wrapper.m_Guitar_TouchContact;
         public InputAction @String1 => m_Wrapper.m_Guitar_String1;
@@ -620,9 +597,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
             @Chord_F.started += instance.OnChord_F;
             @Chord_F.performed += instance.OnChord_F;
             @Chord_F.canceled += instance.OnChord_F;
-            @Chord_G.started += instance.OnChord_G;
-            @Chord_G.performed += instance.OnChord_G;
-            @Chord_G.canceled += instance.OnChord_G;
             @TouchPosition.started += instance.OnTouchPosition;
             @TouchPosition.performed += instance.OnTouchPosition;
             @TouchPosition.canceled += instance.OnTouchPosition;
@@ -678,9 +652,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
             @Chord_F.started -= instance.OnChord_F;
             @Chord_F.performed -= instance.OnChord_F;
             @Chord_F.canceled -= instance.OnChord_F;
-            @Chord_G.started -= instance.OnChord_G;
-            @Chord_G.performed -= instance.OnChord_G;
-            @Chord_G.canceled -= instance.OnChord_G;
             @TouchPosition.started -= instance.OnTouchPosition;
             @TouchPosition.performed -= instance.OnTouchPosition;
             @TouchPosition.canceled -= instance.OnTouchPosition;
@@ -780,7 +751,6 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         void OnChord_D(InputAction.CallbackContext context);
         void OnChord_E(InputAction.CallbackContext context);
         void OnChord_F(InputAction.CallbackContext context);
-        void OnChord_G(InputAction.CallbackContext context);
         void OnTouchPosition(InputAction.CallbackContext context);
         void OnTouchContact(InputAction.CallbackContext context);
         void OnString1(InputAction.CallbackContext context);

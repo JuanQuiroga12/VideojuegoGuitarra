@@ -20,13 +20,12 @@ public class RadialMenuController : MonoBehaviour
         controls = new GuitarControls();
 
         // Configurar eventos de input para los acordes
-        controls.Guitar.Chord_A.performed += ctx => SelectChord(0);
-        controls.Guitar.Chord_B.performed += ctx => SelectChord(1);
-        controls.Guitar.Chord_C.performed += ctx => SelectChord(2);
-        controls.Guitar.Chord_D.performed += ctx => SelectChord(3);
-        controls.Guitar.Chord_E.performed += ctx => SelectChord(4);
-        controls.Guitar.Chord_F.performed += ctx => SelectChord(5);
-        controls.Guitar.Chord_G.performed += ctx => SelectChord(6);
+        controls.Guitar.Chord_A.performed += _ => SelectChord(0);
+        controls.Guitar.Chord_B.performed += _ => SelectChord(1);
+        controls.Guitar.Chord_C.performed += _ => SelectChord(2);
+        controls.Guitar.Chord_D.performed += _ => SelectChord(3);
+        controls.Guitar.Chord_E.performed += _ => SelectChord(4);
+        controls.Guitar.Chord_F.performed += _ => SelectChord(5);
 
         // Eventos para cambiar de página
         controls.Guitar.NextPage.performed += ctx => ChangePage(true);
@@ -52,28 +51,20 @@ public class RadialMenuController : MonoBehaviour
 
     private void PositionButtons()
     {
-        if (chordButtons.Length < 7) return; // Necesitamos al menos 7 botones
-
-        float angleStep = 2 * Mathf.PI / 7;
-
-        for (int i = 0; i < 7; i++)
+        if (chordButtons.Length != 6) { Debug.LogError("Necesitas 6 botones"); return; }
+        float angleStep = 360f / 6f;
+        for (int i = 0; i < 6; i++)
         {
-            float angle = i * angleStep;
-            float x = radius * Mathf.Cos(angle);
-            float y = radius * Mathf.Sin(angle);
-
-            chordButtons[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-
-            // Configurar evento de clic
-            int index = i;
-            chordButtons[i].onClick.AddListener(() => SelectChord(index));
+            float rad = Mathf.Deg2Rad * (90 - i * angleStep);
+            chordButtons[i].GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * radius;
         }
     }
 
     private void SelectChord(int index)
     {
         audioManager.SetCurrentChord(index);
-
+        Debug.Log($"Seleccionando acorde: {index}");
         // Visual feedback (highlight selected button)
         for (int i = 0; i < chordButtons.Length; i++)
         {

@@ -78,22 +78,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Chord_G",
+                    "name": "TouchPosition",
                     "type": "Button",
-                    "id": "a5667cb8-11cd-4b08-9578-e5e57ab76716",
+                    "id": "7fb7e974-ecbb-4a22-901e-f11aaa7019b4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "TouchPosition",
-                    "type": "Value",
-                    "id": "7fb7e974-ecbb-4a22-901e-f11aaa7019b4",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
                     "name": "TouchContact",
@@ -194,7 +185,7 @@
                 {
                     "name": "",
                     "id": "a4877743-5746-48f5-8738-4e34edb669da",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -205,7 +196,7 @@
                 {
                     "name": "",
                     "id": "0d5527eb-efb2-405f-b434-fb60ca1ee333",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -216,7 +207,7 @@
                 {
                     "name": "",
                     "id": "aba79493-4066-4db4-b4b4-aaeee6f71263",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -227,7 +218,7 @@
                 {
                     "name": "",
                     "id": "3b1df623-619a-4814-9169-500b5b6f5175",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -238,7 +229,7 @@
                 {
                     "name": "",
                     "id": "7134f551-5e5c-425f-ae20-9509f9764271",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -248,19 +239,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7ba07ea9-14da-41ab-ade6-14bf8820ed22",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Chord_G",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "915f89ee-5d93-41ee-a33e-952b67b573bc",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -271,7 +251,7 @@
                 {
                     "name": "",
                     "id": "48a290cb-15fd-45a5-8fde-06fdf0ad744b",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<Gamepad>/touchpadButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
