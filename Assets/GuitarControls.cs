@@ -185,7 +185,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2759fa02-527c-4d6b-8493-d30ae72de508"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -196,7 +196,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""15c36784-0311-4b81-ba37-3b901af38761"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -284,7 +284,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6af815be-ef80-474a-9581-c071dc19742b"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
