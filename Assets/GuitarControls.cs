@@ -101,12 +101,12 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""TouchPosition"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""7fb7e974-ecbb-4a22-901e-f11aaa7019b4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""TouchContact"",
@@ -179,6 +179,24 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightStickX"",
+                    ""type"": ""Value"",
+                    ""id"": ""16f05a44-1bca-4ab1-bb16-8d6d2adb950a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RightStickY"",
+                    ""type"": ""Value"",
+                    ""id"": ""ec4bb03d-4d63-4c6a-b8c9-30cd55804d0b"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -273,7 +291,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""48a290cb-15fd-45a5-8fde-06fdf0ad744b"",
-                    ""path"": ""<Gamepad>/touchpadButton"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -379,6 +397,28 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
                     ""action"": ""Strum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1511e211-c4aa-472c-9153-c2a79fc8ee30"",
+                    ""path"": ""<DualShockGamepad>/rightStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""RightStickX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b25ae803-2a27-4275-a10d-48580c089bb7"",
+                    ""path"": ""<Gamepad>/rightStick/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightStickY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -465,6 +505,8 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         m_Guitar_String5 = m_Guitar.FindAction("String5", throwIfNotFound: true);
         m_Guitar_String6 = m_Guitar.FindAction("String6", throwIfNotFound: true);
         m_Guitar_Strum = m_Guitar.FindAction("Strum", throwIfNotFound: true);
+        m_Guitar_RightStickX = m_Guitar.FindAction("RightStickX", throwIfNotFound: true);
+        m_Guitar_RightStickY = m_Guitar.FindAction("RightStickY", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -543,6 +585,8 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Guitar_String5;
     private readonly InputAction m_Guitar_String6;
     private readonly InputAction m_Guitar_Strum;
+    private readonly InputAction m_Guitar_RightStickX;
+    private readonly InputAction m_Guitar_RightStickY;
     public struct GuitarActions
     {
         private @GuitarControls m_Wrapper;
@@ -564,6 +608,8 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         public InputAction @String5 => m_Wrapper.m_Guitar_String5;
         public InputAction @String6 => m_Wrapper.m_Guitar_String6;
         public InputAction @Strum => m_Wrapper.m_Guitar_Strum;
+        public InputAction @RightStickX => m_Wrapper.m_Guitar_RightStickX;
+        public InputAction @RightStickY => m_Wrapper.m_Guitar_RightStickY;
         public InputActionMap Get() { return m_Wrapper.m_Guitar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -624,6 +670,12 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
             @Strum.started += instance.OnStrum;
             @Strum.performed += instance.OnStrum;
             @Strum.canceled += instance.OnStrum;
+            @RightStickX.started += instance.OnRightStickX;
+            @RightStickX.performed += instance.OnRightStickX;
+            @RightStickX.canceled += instance.OnRightStickX;
+            @RightStickY.started += instance.OnRightStickY;
+            @RightStickY.performed += instance.OnRightStickY;
+            @RightStickY.canceled += instance.OnRightStickY;
         }
 
         private void UnregisterCallbacks(IGuitarActions instance)
@@ -679,6 +731,12 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
             @Strum.started -= instance.OnStrum;
             @Strum.performed -= instance.OnStrum;
             @Strum.canceled -= instance.OnStrum;
+            @RightStickX.started -= instance.OnRightStickX;
+            @RightStickX.performed -= instance.OnRightStickX;
+            @RightStickX.canceled -= instance.OnRightStickX;
+            @RightStickY.started -= instance.OnRightStickY;
+            @RightStickY.performed -= instance.OnRightStickY;
+            @RightStickY.canceled -= instance.OnRightStickY;
         }
 
         public void RemoveCallbacks(IGuitarActions instance)
@@ -760,5 +818,7 @@ public partial class @GuitarControls: IInputActionCollection2, IDisposable
         void OnString5(InputAction.CallbackContext context);
         void OnString6(InputAction.CallbackContext context);
         void OnStrum(InputAction.CallbackContext context);
+        void OnRightStickX(InputAction.CallbackContext context);
+        void OnRightStickY(InputAction.CallbackContext context);
     }
 }

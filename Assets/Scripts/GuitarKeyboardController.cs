@@ -42,6 +42,10 @@ public class GuitarKeyboardController : MonoBehaviour, GuitarControls.IGuitarAct
     public void OnTouchPosition(InputAction.CallbackContext c) { }
     public void OnTouchContact(InputAction.CallbackContext c) { }
 
+    public void OnRightStickY(InputAction.CallbackContext c) { }
+
+    public void OnRightStickX(InputAction.CallbackContext c) { }
+
     /* -------------- helpers -------------- */
     private void Play(int stringIndex)
     {

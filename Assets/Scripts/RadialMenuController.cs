@@ -7,19 +7,25 @@ public class RadialMenuController : MonoBehaviour
     [SerializeField] private GuitarAudioManager audioManager;
     [SerializeField] private float radius = 200f;
     [SerializeField] private bool startMajorPage = true;
+    [SerializeField] private float joystickThreshold = 0.5f;
 
     private Button[] chordButtons;
     private int currentPage = 0;
-
-    // Referencia al sistema de input
+    private int selectedChord = -1;
     private GuitarControls controls;
+
+    // Posiciones de los botones en el círculo (en grados, 0 = arriba)
+    // Ajusta estos valores según la posición real de tus botones
+    private readonly float[] buttonAngles = { 0f, 60f, 120f, 180f, 240f, 300f };
+    // Índices de acordes correspondientes a cada posición
+    // [A, E, Bm, F#m, C#m, D] según la imagen
+    private readonly int[] angleToChordMap = { 0,1,2,3,4,5 };
 
     private void Awake()
     {
-        // Inicializar controles
         controls = new GuitarControls();
 
-        // Configurar eventos de input para los acordes
+        // Configuraciones originales para teclado
         controls.Guitar.Chord_A.performed += _ => SelectChord(0);
         controls.Guitar.Chord_B.performed += _ => SelectChord(1);
         controls.Guitar.Chord_C.performed += _ => SelectChord(2);
@@ -27,15 +33,12 @@ public class RadialMenuController : MonoBehaviour
         controls.Guitar.Chord_E.performed += _ => SelectChord(4);
         controls.Guitar.Chord_F.performed += _ => SelectChord(5);
 
-        // Eventos para cambiar de página
         controls.Guitar.NextPage.performed += ctx => ChangePage(true);
         controls.Guitar.PrevPage.performed += ctx => ChangePage(false);
 
-        // Obtener botones del menú radial
         chordButtons = GetComponentsInChildren<Button>();
         PositionButtons();
 
-        // Inicializar en la primera página
         SetPage(startMajorPage ? 0 : 1);
     }
 
@@ -49,23 +52,66 @@ public class RadialMenuController : MonoBehaviour
         controls.Disable();
     }
 
+    private void Update()
+    {
+        // Obtener entrada del joystick derecho para la selección de acordes
+        if (Gamepad.current != null)
+        {
+            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+
+            // Solo procesar si el stick se mueve más allá del umbral
+            if (rightStick.magnitude > joystickThreshold)
+            {
+                // Convertir dirección del joystick a ángulo
+                float angle = Mathf.Atan2(rightStick.y, rightStick.x) * Mathf.Rad2Deg;
+                // Ajustar para que 0 sea hacia arriba (por defecto, 0 es hacia la derecha)
+                angle = (90 - angle) % 360;
+                if (angle < 0) angle += 360f;
+
+                // Encontrar el botón más cercano al ángulo
+                int closestButtonIndex = 0;
+                float closestAngleDiff = 360f;
+
+                for (int i = 0; i < buttonAngles.Length; i++)
+                {
+                    float angleDiff = Mathf.Abs(Mathf.DeltaAngle(angle, buttonAngles[i]));
+                    if (angleDiff < closestAngleDiff)
+                    {
+                        closestAngleDiff = angleDiff;
+                        closestButtonIndex = i;
+                    }
+                }
+
+                // Seleccionar el acorde correspondiente a la posición
+                int chordIndex = angleToChordMap[closestButtonIndex];
+                if (chordIndex != selectedChord)
+                {
+                    SelectChord(chordIndex);
+                    Debug.Log($"Ángulo: {angle}, Botón más cercano: {closestButtonIndex}, Acorde: {chordIndex}");
+                }
+            }
+        }
+    }
+
     private void PositionButtons()
     {
         if (chordButtons.Length != 6) { Debug.LogError("Necesitas 6 botones"); return; }
-        float angleStep = 360f / 6f;
+
         for (int i = 0; i < 6; i++)
         {
-            float rad = Mathf.Deg2Rad * (90 - i * angleStep);
-            chordButtons[i].GetComponent<RectTransform>().anchoredPosition =
-                new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * radius;
+            float rad = Mathf.Deg2Rad * buttonAngles[i];
+            chordButtons[angleToChordMap[i]].GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(Mathf.Sin(rad), Mathf.Cos(rad)) * radius;
         }
     }
 
     private void SelectChord(int index)
     {
+        selectedChord = index;
         audioManager.SetCurrentChord(index);
         Debug.Log($"Seleccionando acorde: {index}");
-        // Visual feedback (highlight selected button)
+
+        // Retroalimentación visual
         for (int i = 0; i < chordButtons.Length; i++)
         {
             ColorBlock colors = chordButtons[i].colors;
@@ -85,8 +131,9 @@ public class RadialMenuController : MonoBehaviour
     {
         currentPage = pageIndex;
         audioManager.SetCurrentPage(pageIndex);
+        selectedChord = -1;
 
-        // Actualizar etiquetas de botones según la página
+        // Actualizar etiquetas de botones
         for (int i = 0; i < chordButtons.Length && i < audioManager.chordPages[currentPage].chords.Length; i++)
         {
             Text buttonText = chordButtons[i].GetComponentInChildren<Text>();
@@ -104,7 +151,6 @@ public class RadialMenuController : MonoBehaviour
             }
         }
 
-        // Resetear selección de acorde
         audioManager.SetCurrentChord(-1);
     }
 }

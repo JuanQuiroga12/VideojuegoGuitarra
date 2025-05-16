@@ -31,32 +31,44 @@ public class GuitarGameManager : MonoBehaviour
             mouseController.gameObject.SetActive(true);
             Debug.Log("No gamepad detected - using mouse controls");
         }
+
+        UpdateControllerMode();
+
     }
 
     private void OnEnable()
     {
         controls.Enable();
+        InputSystem.onDeviceChange += OnDeviceChange;
     }
 
     private void OnDisable()
     {
         controls.Disable();
+        InputSystem.onDeviceChange -= OnDeviceChange;
     }
 
-    private void Update()
+    private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        // Detectar cambios de dispositivo de entrada
-        if (Gamepad.current != null && !touchpadController.gameObject.activeSelf)
+        if (change == InputDeviceChange.Added || change == InputDeviceChange.Removed)
+        {
+            UpdateControllerMode();
+        }
+    }
+
+    private void UpdateControllerMode()
+    {
+        if (Gamepad.current != null)
         {
             touchpadController.gameObject.SetActive(true);
             mouseController.gameObject.SetActive(false);
-            Debug.Log("Gamepad controller connected - switching to touchpad controls");
+            Debug.Log("Gamepad controller detected - using touchpad controls");
         }
-        else if (Gamepad.current == null && !mouseController.gameObject.activeSelf)
+        else
         {
             touchpadController.gameObject.SetActive(false);
             mouseController.gameObject.SetActive(true);
-            Debug.Log("Gamepad disconnected - switching to mouse controls");
+            Debug.Log("No gamepad detected - using mouse controls");
         }
     }
 }
