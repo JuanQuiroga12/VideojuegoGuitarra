@@ -96,13 +96,10 @@ public class GuitarMouseController : MonoBehaviour, IPointerDownHandler, IPointe
                 bool upStrum = normalizedPos.y > startPosition.y;
                 audioManager.PlayStrum(audioManager.CurrentChord, upStrum);
 
-                // Animar todas las cuerdas
+                // Animar las cuerdas secuencialmente
                 if (neckUI != null)
                 {
-                    for (int i = 0; i < 6; i++)
-                    {
-                        neckUI.AnimateString(i);
-                    }
+                    neckUI.AnimateStrum(upStrum);
                 }
 
                 // Reiniciar para evitar múltiples rasgueos

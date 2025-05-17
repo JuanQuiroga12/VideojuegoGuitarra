@@ -32,7 +32,7 @@ public class GuitarTouchpadController : MonoBehaviour
             Vector2 touchPosition = dualShock.leftStick.ReadValue();
 
             // Ajustar posición al rango 0-1
-            touchPosition = new Vector2((touchPosition.x + 1) / 2, (touchPosition.y + 1) / 2);
+            touchPosition = new Vector2((touchPosition.x), (touchPosition.y));
 
             ProcessTouchInput(touchPressed, touchPosition);
         }
@@ -103,13 +103,10 @@ public class GuitarTouchpadController : MonoBehaviour
                     bool upStrum = touchPosition.y > touchStartPosition.y;
                     audioManager.PlayStrum(audioManager.CurrentChord, upStrum);
 
-                    // Animar todas las cuerdas
+                    // Animar las cuerdas secuencialmente
                     if (neckUI != null)
                     {
-                        for (int i = 0; i < 6; i++)
-                        {
-                            neckUI.AnimateString(i);
-                        }
+                        neckUI.AnimateStrum(upStrum);
                     }
 
                     ProvideHapticFeedback(0, 1.0f);

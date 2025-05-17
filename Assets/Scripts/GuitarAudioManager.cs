@@ -161,9 +161,11 @@ public class GuitarAudioManager : MonoBehaviour
         }
     }
 
-    // Método para simular un rasgueo completo 
-    public void PlayStrum(int chordIndex, bool upStrum = false)
+    // Modificar en GuitarAudioManager.cs
+    public float PlayStrum(int chordIndex, bool upStrum = false)
     {
+        float delayBetweenStrings = 0.03f; // Valor ajustado para coincidir con animación
+
         if (chordIndex >= 0 && chordIndex < chordPages[currentPage].chords.Length)
         {
             // Determina el orden de cuerdas según sea rasgueo hacia arriba o abajo
@@ -171,15 +173,15 @@ public class GuitarAudioManager : MonoBehaviour
             int end = upStrum ? -1 : 6;
             int step = upStrum ? -1 : 1;
 
-            // Añade un pequeño retraso entre cuerdas
-            float delayBetweenStrings = 0.03f;
-
             for (int i = 0; i < 6; i++)
             {
                 int stringIndex = upStrum ? 5 - i : i;
                 StartCoroutine(PlayDelayedString(chordIndex, stringIndex, i * delayBetweenStrings));
             }
         }
+
+        // Devolvemos el delay para que la animación pueda sincronizarse
+        return delayBetweenStrings;
     }
 
     private IEnumerator PlayDelayedString(int chordIndex, int stringIndex, float delay)
