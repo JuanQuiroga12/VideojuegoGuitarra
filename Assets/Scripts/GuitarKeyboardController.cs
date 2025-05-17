@@ -9,6 +9,9 @@ public class GuitarKeyboardController : MonoBehaviour, GuitarControls.IGuitarAct
     private GuitarAudioManager audio;
     [SerializeField] private GuitarNeckUI neckUI;
 
+    // Umbral para considerar que el joystick está inclinado en una dirección
+    [SerializeField] private float stickThreshold = 0.3f;
+
     private void Awake()
     {
         audio = GetComponent<GuitarAudioManager>();
@@ -72,16 +75,32 @@ public class GuitarKeyboardController : MonoBehaviour, GuitarControls.IGuitarAct
                 neckUI.AnimateString(5);
         }
     }
+    // Método modificado para detectar la dirección del rasgueo
     public void OnStrum(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && audio.CurrentChord >= 0)
         {
-            audio.PlayStrum(audio.CurrentChord, false);
+            // Determinar la dirección del rasgueo basado en el joystick izquierdo
+            bool upStrum = false;
+
+            if (Gamepad.current != null)
+            {
+                // Leer la posición Y del joystick izquierdo
+                float leftStickY = Gamepad.current.leftStick.y.ReadValue();
+
+                // Si el joystick está hacia arriba (positivo), hacer un rasgueo hacia arriba
+                // Si el joystick está hacia abajo (negativo) o neutral, hacer un rasgueo hacia abajo (por defecto)
+                upStrum = leftStickY > stickThreshold;
+
+                Debug.Log($"Rasgueo direccional: {(upStrum ? "Arriba" : "Abajo")}, Valor joystick: {leftStickY}");
+            }
+
+            audio.PlayStrum(audio.CurrentChord, upStrum);
 
             // Animar las cuerdas secuencialmente
             if (neckUI != null)
             {
-                neckUI.AnimateStrum(false);
+                neckUI.AnimateStrum(upStrum);
             }
         }
     }
