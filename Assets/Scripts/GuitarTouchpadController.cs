@@ -27,25 +27,10 @@ public class GuitarTouchpadController : MonoBehaviour
         if (gamepad is DualShockGamepad dualShock)
         {
             // Simulación usando L2 y el stick izquierdo
-            // No podemos acceder directamente a la posición del touchpad en Unity Input System
-            bool touchPressed = dualShock.leftTrigger.isPressed;
-            Vector2 touchPosition = dualShock.leftStick.ReadValue();
-
-            // Ajustar posición al rango 0-1
-            touchPosition = new Vector2((touchPosition.x), (touchPosition.y));
-
-            ProcessTouchInput(touchPressed, touchPosition);
         }
         // Para otros gamepads, usar la misma simulación
         else
         {
-            bool touchPressed = gamepad.leftTrigger.isPressed;
-            Vector2 touchPosition = gamepad.leftStick.ReadValue();
-
-            // Ajustar posición al rango 0-1
-            touchPosition = new Vector2((touchPosition.x + 1) / 2, (touchPosition.y + 1) / 2);
-
-            ProcessTouchInput(touchPressed, touchPosition);
         }
     }
 
